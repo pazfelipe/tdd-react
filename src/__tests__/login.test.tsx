@@ -13,12 +13,12 @@ describe("<LoginPage>", () => {
   });
 
   describe("input email", () => {
-    it("should find text input", () => {
+    it("should be rendered", () => {
       const {getByPlaceholderText} = render(<LoginPage />);
       expect(getByPlaceholderText("Email")).toBeInTheDocument()
     });
 
-    it("input elemenet should be type email", () => {
+    it("should be type of email", () => {
       render(<LoginPage />);
       expect(document.querySelector("input[type='email']")).toBeInTheDocument()
     });
