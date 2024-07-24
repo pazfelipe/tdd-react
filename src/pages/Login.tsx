@@ -38,6 +38,7 @@ const LoginPage = () => {
           placeholder="Password"
           type="password"
           name="password"
+          value={''}
         />
       </div>
     </div>
