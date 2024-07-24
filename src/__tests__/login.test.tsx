@@ -82,7 +82,7 @@ describe("<LoginPage>", () => {
       it("should have an error class while typing an invalid email", () => {
         render(<LoginPage />);
         const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']");
-        fireEvent.change(input!, {target: {value: 'test'}});
+        fireEvent.change(input!, {target: {value: 'wrong'}});
 
         expect(input?.classList.contains("error")).toBeTruthy();
       });
