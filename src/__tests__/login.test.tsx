@@ -132,6 +132,10 @@ describe("<LoginPage>", () => {
       fireEvent.change(input, {target: {value: "123456"}});
       expect(input).toHaveValue("123456");
     });
+    it("should have a button to toggle password visibility", () => {
+      render(<LoginPage />);
+      expect(document.querySelector("input[name='password'] ~ button[type='button']")).toBeInTheDocument();
+    });
 
     describe("validations", () => {
       it.todo("should be required");
