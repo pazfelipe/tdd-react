@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from "react";
 
 const LoginPage = () => {
   const [value, setValue] = useState("");
+  const [password, setPassword] = useState("");
   const [lostFocus, setLostFocus] = useState(false);
   const [isValid, setIsValid] = useState(true);
 
@@ -38,7 +39,8 @@ const LoginPage = () => {
           placeholder="Password"
           type="password"
           name="password"
-          value={''}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
     </div>
