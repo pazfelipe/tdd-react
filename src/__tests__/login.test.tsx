@@ -22,5 +22,12 @@ describe("<LoginPage>", () => {
       render(<LoginPage />);
       expect(document.querySelector("input[type='email']")).toBeInTheDocument()
     });
+
+    it("should have attribute name and be email", () => {
+      render(<LoginPage />);
+      const input = document.querySelector("input[type='email']")
+      expect(input?.hasAttribute("name")).toBeTruthy()
+      expect(input?.getAttribute("name")).toBe("email")
+    })
   })
 });
