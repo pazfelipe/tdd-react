@@ -10,7 +10,7 @@ const LoginPage = () => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
 
-    if (/^test$/.test(e.target.value)) {
+    if (!/^test$/.test(e.target.value)) {
       emailRef.current?.classList.add('error');
     }
   };
