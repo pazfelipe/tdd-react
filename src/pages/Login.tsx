@@ -35,6 +35,9 @@ const LoginPage = () => {
           <span>Please, enter a valid email</span>
         )}
       </div>
+      <div>
+        <input placeholder='Password' />
+      </div>
     </div>
   );
 };
