@@ -40,6 +40,7 @@ const LoginPage = () => {
           placeholder="Password"
           type={visible ? "text" : "password"}
           name="password"
+          required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
