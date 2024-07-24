@@ -1,8 +1,9 @@
-import { ChangeEvent, useState } from "react";
+import {ChangeEvent, useState} from "react";
 
 const LoginPage = () => {
   const [value, setValue] = useState("");
   const [password, setPassword] = useState("");
+  const [visible, setVisibility] = useState(false);
   const [lostFocus, setLostFocus] = useState(false);
   const [isValid, setIsValid] = useState(true);
 
@@ -37,12 +38,12 @@ const LoginPage = () => {
       <div>
         <input
           placeholder="Password"
-          type="password"
+          type={visible ? "text" : "password"}
           name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type='button'></button>
+        <button type='button' onClick={() => setVisibility(!visible)}></button>
       </div>
     </div>
   );
