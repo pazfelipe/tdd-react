@@ -22,9 +22,24 @@ const LoginPage = () => {
   };
 
   return (
-    <div>Login Page
-
-      <input placeholder='Email' type='email' name='email' required value={value} onChange={onChange} ref={emailRef} />
+    <div>
+      Login Page
+      <div>
+        <input
+          ref={emailRef}
+          placeholder="Email"
+          type="email"
+          name="email"
+          required
+          value={value}
+          onChange={onChange}
+          onFocus={() => setLostFocus(false)}
+          onBlur={() => setLostFocus(true)}
+        />
+        {lostFocus && emailRef.current?.classList.contains("error") && (
+          <span>Please, enter a valid email</span>
+        )}
+      </div>
     </div>
   );
 };
