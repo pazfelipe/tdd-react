@@ -1,13 +1,24 @@
 import {fireEvent, render} from '@testing-library/react';
 import "@testing-library/jest-dom";
-import {useState} from 'react';
+import {ChangeEvent, useRef, useState} from 'react';
 
 const LoginPage = () => {
   const [value, setValue] = useState("");
+
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+
+    if (/^test$/.test(e.target.value)) {
+      emailRef.current?.classList.add('error');
+    }
+  };
+
   return (
     <div>Login Page
 
-      <input placeholder='Email' type='email' name='email' required value={value} onChange={(e) => setValue(e.target.value)} />
+      <input placeholder='Email' type='email' name='email' required value={value} onChange={onChange} ref={emailRef} />
     </div>
   );
 };
