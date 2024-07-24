@@ -82,6 +82,14 @@ describe("<LoginPage>", () => {
 
         expect(input?.classList.contains("error")).toBeTruthy();
       });
+
+      it("should have a success class after entered an email", () => {
+        render(<LoginPage />);
+        const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']");
+        fireEvent.change(input!, {target: {value: 'test'}});
+
+        expect(input?.classList.contains("success")).toBeTruthy();
+      });
     });
   });
 });
