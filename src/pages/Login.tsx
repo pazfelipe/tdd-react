@@ -38,7 +38,7 @@ const LoginPage = () => {
           onBlur={() => setLostFocus(true)}
           className={isValid ? "success" : "error"}
         />
-        {lostFocus && emailRef.current?.classList.contains("error") && (
+        {lostFocus && !isValid && (
           <span>Please, enter a valid email</span>
         )}
       </div>
