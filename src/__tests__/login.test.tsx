@@ -125,6 +125,14 @@ describe("<LoginPage>", () => {
       expect(input).toHaveFocus();
     });
 
+    it("should enter password '123456'", () => {
+      const {getByPlaceholderText} = render(<LoginPage />);
+      const input = getByPlaceholderText("Password");
+      fireEvent.focus(input);
+      fireEvent.change(input, {target: {value: "123456"}});
+      expect(input).toHaveValue("123456");
+    });
+
     describe("validations", () => {
       it.todo("should be required");
       it.todo("should have a success class after entered a password");
