@@ -49,7 +49,7 @@ describe("<LoginPage>", () => {
       expect(input).toHaveFocus();
     });
 
-    it("should receive focus", () => {
+    it("should display input value 'testing element'", () => {
       const {getByPlaceholderText} = render(<LoginPage />);
       const input = getByPlaceholderText("Email");
       fireEvent.focus(input);
