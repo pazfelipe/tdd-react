@@ -1,10 +1,16 @@
-import {render} from '@testing-library/react';
+import {fireEvent, render} from '@testing-library/react';
 import "@testing-library/jest-dom";
+import {useState} from 'react';
 
-const LoginPage = () => <div>Login Page
+const LoginPage = () => {
+  const [value, setValue] = useState("");
+  return (
+    <div>Login Page
 
-  <input placeholder='Email' type='email' name='email' value=""/>
-</div>;
+      <input placeholder='Email' type='email' name='email' value={value} onChange={(e) => setValue(e.target.value)} />
+    </div>
+  );
+};
 
 describe("<LoginPage>", () => {
   it("should render correctly", () => {
@@ -15,26 +21,26 @@ describe("<LoginPage>", () => {
   describe("input email", () => {
     it("should be rendered", () => {
       const {getByPlaceholderText} = render(<LoginPage />);
-      expect(getByPlaceholderText("Email")).toBeInTheDocument()
+      expect(getByPlaceholderText("Email")).toBeInTheDocument();
     });
 
     it("should be type of email", () => {
       render(<LoginPage />);
-      expect(document.querySelector("input[type='email']")).toBeInTheDocument()
+      expect(document.querySelector("input[type='email']")).toBeInTheDocument();
     });
 
     it("should have attribute name and be email", () => {
       render(<LoginPage />);
-      const input = document.querySelector("input[type='email']")
-      expect(input?.hasAttribute("name")).toBeTruthy()
-      expect(input?.getAttribute("name")).toBe("email")
-    })
+      const input = document.querySelector("input[type='email']");
+      expect(input?.hasAttribute("name")).toBeTruthy();
+      expect(input?.getAttribute("name")).toBe("email");
+    });
 
     it("should initialize empty", () => {
       render(<LoginPage />);
-      const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']")
-      expect(input!.value).toBe("")
-    })
+      const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']");
+      expect(input!.value).toBe("");
+    });
 
     it("should receive focus", () => {
       render(<LoginPage />);
