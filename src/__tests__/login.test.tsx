@@ -215,6 +215,7 @@ describe("<LoginPage>", () => {
         const {getByPlaceholderText} = render(<LoginPage />);
 
         const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
+        const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
 
         fireEvent.change(emailInput, {target: {value: '1234'}});
         fireEvent.change(passwordInput, {target: {value: '123456'}});
