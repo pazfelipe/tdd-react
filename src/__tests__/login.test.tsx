@@ -217,6 +217,21 @@ describe("<LoginPage>", () => {
         const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
 
         fireEvent.change(emailInput, {target: {value: '1234'}});
+        fireEvent.change(passwordInput, {target: {value: '123456'}});
+
+        const button = document.querySelector("button[type='submit'][disabled='']") as HTMLButtonElement;
+
+        expect(button).toBeInTheDocument();
+      });
+
+      it("should be disabled while password is not valid", () => {
+        const {getByPlaceholderText} = render(<LoginPage />);
+
+        const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
+        const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
+
+        fireEvent.change(emailInput, {target: {value: 'email@example.com'}});
+        fireEvent.change(passwordInput, {target: {value: '12345'}});
 
         const button = document.querySelector("button[type='submit'][disabled='']") as HTMLButtonElement;
 
