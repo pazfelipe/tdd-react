@@ -6,16 +6,28 @@ const LoginPage = () => {
   const [visible, setVisibility] = useState(false);
   const [lostFocus, setLostFocus] = useState(false);
   const [isValid, setIsValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const validatePassword = (password: string) => {
+    return password.length >= 6;
+  }
+
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setValue(newValue);
     setLostFocus(false);
     setIsValid(validateEmail(newValue));
+  };
+
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setPassword(newValue);
+    setLostFocus(false);
+    setIsPasswordValid(validatePassword(newValue));
   };
 
   return (
@@ -28,7 +40,7 @@ const LoginPage = () => {
           name="email"
           required
           value={value}
-          onChange={onChange}
+          onChange={onChangeEmail}
           onFocus={() => setLostFocus(false)}
           onBlur={() => setLostFocus(true)}
           className={isValid ? "success" : "error"}
@@ -42,7 +54,8 @@ const LoginPage = () => {
           name="password"
           required
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={onChangePassword}
+          className={isPasswordValid ? "success" : "error"}
         />
         <button type='button' onClick={() => setVisibility(!visible)}></button>
       </div>
