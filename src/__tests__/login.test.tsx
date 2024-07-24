@@ -261,7 +261,14 @@ describe("<LoginPage>", () => {
       expect(document.querySelector("form")).toBeInTheDocument();
     });
 
-    it.todo("input email should be disabled after submiting");
+    it("input email should be disabled after submiting", () => {
+      const {getByPlaceholderText} = render(<LoginPage />);
+      const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
+      fireEvent.change(emailInput, {target: {value: 'email@example.com'}});
+      const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
+      fireEvent.click(button);
+      expect(emailInput).toBeDisabled();
+    });
     it.todo("input password should be disabled after submiting");
     it.todo("button submit should be disabled after submiting");
     it.todo("should display a message for credentials not found");
