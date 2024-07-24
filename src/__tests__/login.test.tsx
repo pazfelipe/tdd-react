@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 
 const LoginPage = () => <div>Login Page
 
-  <input placeholder='Email' type='email'/>
+  <input placeholder='Email' type='email' name='email'/>
 </div>;
 
 describe("<LoginPage>", () => {
