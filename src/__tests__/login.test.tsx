@@ -169,7 +169,15 @@ describe("<LoginPage>", () => {
         expect(input?.classList.contains("success")).toBeTruthy();
       });
 
-      it.todo("should display an error message on blur when input password has less than 6 characters");
+      it("should display an error message on blur when input password has less than 6 characters", () => {
+        render(<LoginPage />);
+        const input = document.querySelector<HTMLInputElement>(
+          "input[type='password'][name='password']",
+        );
+        fireEvent.change(input!, {target: {value: "123"}});
+
+        expect(input?.classList.contains("error")).toBeTruthy();
+      });
       it.todo("should be able to toggle password visibility");
     });
   });
