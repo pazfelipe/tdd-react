@@ -69,7 +69,7 @@ const LoginPage = () => {
         </div>
         <button type='button' role='toggle' onClick={() => setVisibility(!visible)}></button>
       </div>
-      <button type="submit" onClick={onHandleSubmit} disabled={isLoading || !isValid}></button>
+      <button type="submit" onClick={onHandleSubmit} disabled={isLoading || !isValid || !isPasswordValid}></button>
     </div>
   );
 };
