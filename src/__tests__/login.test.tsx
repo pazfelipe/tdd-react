@@ -140,14 +140,14 @@ describe("<LoginPage>", () => {
 
     it("should able to toggle input password type", () => {
       render(<LoginPage />);
-      const btn = document.querySelector("button[role='toggle']")
+      const btn = document.querySelector("button[role='toggle']");
 
-      const input = document.querySelector("input[name='password']") as HTMLInputElement
-      
-      fireEvent.click(btn!)
-      expect(input.type).toBe("text")
-      fireEvent.click(btn!)
-      expect(input.type).toBe("password")
+      const input = document.querySelector("input[name='password']") as HTMLInputElement;
+
+      fireEvent.click(btn!);
+      expect(input.type).toBe("text");
+      fireEvent.click(btn!);
+      expect(input.type).toBe("password");
     });
 
     describe("validations", () => {
@@ -158,7 +158,7 @@ describe("<LoginPage>", () => {
         );
         expect(input).toHaveAttribute("required");
       });
-      
+
       it("should have a success class after entered a password", () => {
         render(<LoginPage />);
         const input = document.querySelector<HTMLInputElement>(
@@ -202,9 +202,13 @@ describe("<LoginPage>", () => {
       render(<LoginPage />);
       expect(document.querySelector("button[type='submit']")).toBeInTheDocument();
     });
-    
-    it.todo("should be disabled after submitting form");
-    it.todo("should receive focus");
+
+    it("should be disabled after submitting form", () => {
+      render(<LoginPage />);
+      const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
+      fireEvent.click(button!);
+      expect(button?.disabled).toBeTruthy();
+    });
 
     describe("validations", () => {
       it.todo("should be disabled while email and password are not valid");
