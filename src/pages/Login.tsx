@@ -3,6 +3,7 @@ import {ChangeEvent, useRef, useState} from 'react';
 const LoginPage = () => {
   const [value, setValue] = useState("");
   const [lostFocus, setLostFocus] = useState(false);
+  const [isValid, setIsValid] = useState(true);
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
