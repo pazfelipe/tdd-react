@@ -135,12 +135,12 @@ describe("<LoginPage>", () => {
 
     it("should have a button to toggle password visibility", () => {
       render(<LoginPage />);
-      expect(document.querySelector("input[name='password'] ~ button[type='button']")).toBeInTheDocument();
+      expect(document.querySelector("button[role='toggle']")).toBeInTheDocument();
     });
 
     it("should able to toggle input password type", () => {
       render(<LoginPage />);
-      const btn = document.querySelector("input[name='password'] ~ button[type='button']")
+      const btn = document.querySelector("button[role='toggle']")
 
       const input = document.querySelector("input[name='password']") as HTMLInputElement
       
