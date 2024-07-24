@@ -36,7 +36,7 @@ const LoginPage = () => {
         )}
       </div>
       <div>
-        <input placeholder='Password' />
+        <input placeholder='Password' type='password' />
       </div>
     </div>
   );
