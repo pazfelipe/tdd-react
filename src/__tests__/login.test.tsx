@@ -7,7 +7,7 @@ const LoginPage = () => {
   return (
     <div>Login Page
 
-      <input placeholder='Email' type='email' name='email' value={value} onChange={(e) => setValue(e.target.value)} />
+      <input placeholder='Email' type='email' name='email' required value={value} onChange={(e) => setValue(e.target.value)} />
     </div>
   );
 };
@@ -56,5 +56,13 @@ describe("<LoginPage>", () => {
       fireEvent.change(input, {target: {value: 'testing element'}});
       expect(input).toHaveValue('testing element');
     });
+
+    describe("validations", () => {
+      it("should be required", () => {
+        render(<LoginPage />);
+        const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']");
+        expect(input?.required).toBeTruthy();
+      })
+    })
   });
 });
