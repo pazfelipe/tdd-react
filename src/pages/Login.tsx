@@ -1,4 +1,4 @@
-import {ChangeEvent, useRef, useState} from 'react';
+import { ChangeEvent, useState } from 'react';
 
 const LoginPage = () => {
   const [value, setValue] = useState("");
@@ -10,16 +10,10 @@ const LoginPage = () => {
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    const newValue = e.target.value;
+    setValue(newValue);
     setLostFocus(false);
-
-    if (!/^test$/.test(e.target.value)) {
-      emailRef.current?.classList.add("error");
-      emailRef.current?.classList.remove("success");
-    } else {
-      emailRef.current?.classList.remove("error");
-      emailRef.current?.classList.add("success");
-    }
+    setIsValid(validateEmail(newValue));
   };
 
   return (
@@ -27,7 +21,6 @@ const LoginPage = () => {
       Login Page
       <div>
         <input
-          ref={emailRef}
           placeholder="Email"
           type="email"
           name="email"
@@ -46,4 +39,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage
+export default LoginPage;
