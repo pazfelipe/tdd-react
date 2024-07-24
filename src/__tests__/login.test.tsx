@@ -1,7 +1,10 @@
 import {render} from '@testing-library/react';
 import "@testing-library/jest-dom";
 
-const LoginPage = () => <div>Login Page</div>;
+const LoginPage = () => <div>Login Page
+
+  <input placeholder='Email'/>
+</div>;
 
 describe("<LoginPage>", () => {
   it("should render correctly", () => {
