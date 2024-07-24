@@ -14,7 +14,7 @@ const LoginPage = () => {
 
   const validatePassword = (password: string) => {
     return password.length >= 6;
-  }
+  };
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -48,16 +48,21 @@ const LoginPage = () => {
         {lostFocus && !isValid && <span>Please, enter a valid email</span>}
       </div>
       <div>
-        <input
-          placeholder="Password"
-          type={visible ? "text" : "password"}
-          name="password"
-          required
-          value={password}
-          onChange={onChangePassword}
-          className={isPasswordValid ? "success" : "error"}
-        />
-        <button type='button' onClick={() => setVisibility(!visible)}></button>
+        <div>
+          <input
+            placeholder="Password"
+            type={visible ? "text" : "password"}
+            name="password"
+            required
+            value={password}
+            onChange={onChangePassword}
+            onFocus={() => setLostFocus(false)}
+            onBlur={() => setLostFocus(true)}
+            className={isPasswordValid ? "success" : "error"}
+          />
+          {lostFocus && !isPasswordValid && <span>Your password must have at least 6 characters</span>}
+        </div>
+        <button type='button' role='toggle' onClick={() => setVisibility(!visible)}></button>
       </div>
     </div>
   );
