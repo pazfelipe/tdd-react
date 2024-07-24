@@ -116,7 +116,14 @@ describe("<LoginPage>", () => {
       );
       expect(input!.value).toBe("");
     });
-    it.todo("should receive focus");
+    it("should receive focus", () => {
+      render(<LoginPage />);
+      const input = document.querySelector<HTMLInputElement>(
+        "input[type='password'][name='password']",
+      );
+      input!.focus();
+      expect(input).toHaveFocus();
+    });
 
     describe("validations", () => {
       it.todo("should be required");
