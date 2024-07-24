@@ -99,7 +99,10 @@ describe("<LoginPage>", () => {
       const {getByPlaceholderText} = render(<LoginPage />);
       expect(getByPlaceholderText("Password")).toBeInTheDocument();
     });
-    it.todo("should be type of password");
+    it("should be type of password", () => {
+      render(<LoginPage />);
+      expect(document.querySelector("input[type='password']")).toBeInTheDocument();
+    });
     it.todo("should have attribute name and with value password");
     it.todo("should initialize empty");
     it.todo("should receive focus");
