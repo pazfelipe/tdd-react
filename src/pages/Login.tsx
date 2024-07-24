@@ -4,7 +4,9 @@ const LoginPage = () => {
   const [value, setValue] = useState("");
   const [lostFocus, setLostFocus] = useState(false);
 
-  const emailRef = useRef<HTMLInputElement>(null);
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
