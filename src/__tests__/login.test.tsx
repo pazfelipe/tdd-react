@@ -211,7 +211,17 @@ describe("<LoginPage>", () => {
     });
 
     describe("validations", () => {
-      it.todo("should be disabled while email and password are not valid");
+      it("should be disabled while email is not valid", () => {
+        const {getByPlaceholderText} = render(<LoginPage />);
+
+        const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
+
+        fireEvent.change(emailInput, {target: {value: '1234'}});
+
+        const button = document.querySelector("button[type='submit'][disabled='']") as HTMLButtonElement;
+
+        expect(button).toBeInTheDocument();
+      });
     });
   });
 
