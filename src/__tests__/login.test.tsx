@@ -58,7 +58,7 @@ describe("<LoginPage>", () => {
         const input = document.querySelector<HTMLInputElement>(
           "input[type='email'][name='email']",
         );
-        expect(input?.required).toBeTruthy();
+        expect(input).toHaveAttribute("required");
       });
 
       it("should have an error class while typing an invalid email", () => {
