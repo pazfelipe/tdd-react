@@ -5,8 +5,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisibility] = useState(false);
   const [lostFocus, setLostFocus] = useState(false);
-  const [isValid, setIsValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isValid, setIsValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const validateEmail = (email: string) => {
@@ -69,7 +69,7 @@ const LoginPage = () => {
         </div>
         <button type='button' role='toggle' onClick={() => setVisibility(!visible)}></button>
       </div>
-      <button type="submit" onClick={onHandleSubmit} disabled={isLoading}></button>
+      <button type="submit" onClick={onHandleSubmit} disabled={isLoading || !isValid}></button>
     </div>
   );
 };
