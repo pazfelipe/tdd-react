@@ -76,7 +76,7 @@ describe("<LoginPage>", () => {
         const input = document.querySelector<HTMLInputElement>(
           "input[type='email'][name='email']",
         );
-        fireEvent.change(input!, {target: {value: "test"}});
+        fireEvent.change(input!, {target: {value: "email@example.com"}});
 
         expect(input?.classList.contains("success")).toBeTruthy();
       });
