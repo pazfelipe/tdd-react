@@ -17,5 +17,10 @@ describe("<LoginPage>", () => {
       const {getByPlaceholderText} = render(<LoginPage />);
       expect(getByPlaceholderText("Email")).toBeInTheDocument()
     });
+
+    it("input elemenet should be type email", () => {
+      render(<LoginPage />);
+      expect(document.querySelector("input[type='email']")).toBeInTheDocument()
+    });
   })
 });
