@@ -12,6 +12,10 @@ const LoginPage = () => {
 
     if (!/^test$/.test(e.target.value)) {
       emailRef.current?.classList.add('error');
+      emailRef.current?.classList.remove('success');
+    } else {
+      emailRef.current?.classList.remove('error');
+      emailRef.current?.classList.add('success')
     }
   };
 
