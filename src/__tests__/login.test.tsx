@@ -38,9 +38,17 @@ describe("<LoginPage>", () => {
 
     it("should receive focus", () => {
       render(<LoginPage />);
-      const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']")
-      input!.focus()
-      expect(input).toHaveFocus()
-    })
-  })
+      const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']");
+      input!.focus();
+      expect(input).toHaveFocus();
+    });
+
+    it("should receive focus", () => {
+      const {getByPlaceholderText} = render(<LoginPage />);
+      const input = getByPlaceholderText("Email");
+      fireEvent.focus(input);
+      fireEvent.change(input, {target: {value: 'testing element'}});
+      expect(input).toHaveValue('testing element');
+    });
+  });
 });
