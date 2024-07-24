@@ -178,7 +178,17 @@ describe("<LoginPage>", () => {
 
         expect(input?.classList.contains("error")).toBeTruthy();
       });
-      it.todo("should be able to toggle password visibility");
+
+      it("should display an error message on blur when entered an invalid password", () => {
+        const {getByText} = render(<LoginPage />);
+        const input = document.querySelector<HTMLInputElement>(
+          "input[name='password']",
+        );
+        fireEvent.change(input!, {target: {value: "123"}});
+        fireEvent.blur(input!);
+
+        expect(getByText("Your password must have at least 6 characters")).toBeInTheDocument();
+      });
     });
   });
 
