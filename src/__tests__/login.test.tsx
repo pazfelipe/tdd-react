@@ -12,8 +12,10 @@ describe("<LoginPage>", () => {
     expect(getByText('Login Page')).toBeInTheDocument();
   });
 
-  it("should find text input", () => {
-    const {getByPlaceholderText} = render(<LoginPage />);
-    expect(getByPlaceholderText("Email")).toBeInTheDocument()
-  });
+  describe("input email", () => {
+    it("should find text input", () => {
+      const {getByPlaceholderText} = render(<LoginPage />);
+      expect(getByPlaceholderText("Email")).toBeInTheDocument()
+    });
+  })
 });
