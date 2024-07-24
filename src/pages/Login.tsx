@@ -64,6 +64,7 @@ const LoginPage = () => {
         </div>
         <button type='button' role='toggle' onClick={() => setVisibility(!visible)}></button>
       </div>
+      <button type="submit"></button>
     </div>
   );
 };
