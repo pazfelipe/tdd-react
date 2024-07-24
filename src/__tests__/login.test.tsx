@@ -197,7 +197,12 @@ describe("<LoginPage>", () => {
       render(<LoginPage />);
       expect(document.querySelector("button[type='submit']")).toBeInTheDocument();
     });
-    it.todo("should be type of submit");
+
+    it("should be type of submit", () => {
+      render(<LoginPage />);
+      expect(document.querySelector("button[type='submit']")).toBeInTheDocument();
+    });
+    
     it.todo("should be disabled after submitting form");
     it.todo("should receive focus");
 
