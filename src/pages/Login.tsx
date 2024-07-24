@@ -32,7 +32,7 @@ const LoginPage = () => {
   };
 
   const onHandleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     setIsLoading(true);
   };
 
@@ -63,6 +63,7 @@ const LoginPage = () => {
               name="password"
               required
               value={password}
+              disabled={isLoading}
               onChange={onChangePassword}
               onFocus={() => setLostFocus(false)}
               onBlur={() => {
