@@ -4,11 +4,13 @@ import {ChangeEvent, useRef, useState} from 'react';
 
 const LoginPage = () => {
   const [value, setValue] = useState("");
+  const [lostFocus, setLostFocus] = useState(false);
 
   const emailRef = useRef<HTMLInputElement>(null);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+    setLostFocus(false);
 
     if (!/^test$/.test(e.target.value)) {
       emailRef.current?.classList.add('error');
