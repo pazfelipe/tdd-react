@@ -132,9 +132,22 @@ describe("<LoginPage>", () => {
       fireEvent.change(input, {target: {value: "123456"}});
       expect(input).toHaveValue("123456");
     });
+
     it("should have a button to toggle password visibility", () => {
       render(<LoginPage />);
       expect(document.querySelector("input[name='password'] ~ button[type='button']")).toBeInTheDocument();
+    });
+
+    it("should able to toggle input password type", () => {
+      render(<LoginPage />);
+      const btn = document.querySelector("input[name='password'] ~ button[type='button']")
+
+      const input = document.querySelector("input[name='password']") as HTMLInputElement
+      
+      fireEvent.click(btn!)
+      expect(input.type).toBe("text")
+      fireEvent.click(btn!)
+      expect(input.type).toBe("password")
     });
 
     describe("validations", () => {
