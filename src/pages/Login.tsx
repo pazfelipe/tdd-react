@@ -5,8 +5,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisibility] = useState(false);
   const [lostFocus, setLostFocus] = useState(false);
-  const [isValid, setIsValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isValid, setIsValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const validateEmail = (email: string) => {
@@ -38,38 +38,43 @@ const LoginPage = () => {
   return (
     <div>
       Login Page
-      <div>
-        <input
-          placeholder="Email"
-          type="email"
-          name="email"
-          required
-          value={value}
-          onChange={onChangeEmail}
-          onFocus={() => setLostFocus(false)}
-          onBlur={() => setLostFocus(true)}
-          className={isValid ? "success" : "error"}
-        />
-        {lostFocus && !isValid && <span>Please, enter a valid email</span>}
-      </div>
-      <div>
+      <form action="">
         <div>
           <input
-            placeholder="Password"
-            type={visible ? "text" : "password"}
-            name="password"
+            placeholder="Email"
+            type="email"
+            name="email"
             required
-            value={password}
-            onChange={onChangePassword}
+            value={value}
+            onChange={onChangeEmail}
             onFocus={() => setLostFocus(false)}
             onBlur={() => setLostFocus(true)}
-            className={isPasswordValid ? "success" : "error"}
+            className={isValid ? "success" : "error"}
           />
-          {lostFocus && !isPasswordValid && <span>Your password must have at least 6 characters</span>}
+          {lostFocus && !isValid && <span>Please, enter a valid email</span>}
         </div>
-        <button type='button' role='toggle' onClick={() => setVisibility(!visible)}></button>
-      </div>
-      <button type="submit" onClick={onHandleSubmit} disabled={isLoading || !isValid || !isPasswordValid}></button>
+        <div>
+          <div>
+            <input
+              placeholder="Password"
+              type={visible ? "text" : "password"}
+              name="password"
+              required
+              value={password}
+              onChange={onChangePassword}
+              onFocus={() => setLostFocus(false)}
+              onBlur={() => {
+                setLostFocus(true);
+                setIsValid(isValid);
+              }}
+              className={isPasswordValid ? "success" : "error"}
+            />
+            {lostFocus && !isPasswordValid && <span>Your password must have at least 6 characters</span>}
+          </div>
+          <button type='button' role='toggle' onClick={() => setVisibility(!visible)}></button>
+        </div>
+        <button type="submit" onClick={onHandleSubmit} disabled={isLoading || !isValid || !isPasswordValid}></button>
+      </form>
     </div>
   );
 };
