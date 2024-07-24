@@ -95,7 +95,10 @@ describe("<LoginPage>", () => {
   });
 
   describe("input password", () => {
-    it.todo("should be rendered");
+    it("should be rendered", () => {
+      const {getByPlaceholderText} = render(<LoginPage />);
+      expect(getByPlaceholderText("Password")).toBeInTheDocument();
+    });
     it.todo("should be type of password");
     it.todo("should have attribute name and with value password");
     it.todo("should initialize empty");
