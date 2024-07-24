@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from "react";
 
 const LoginPage = () => {
   const [value, setValue] = useState("");
@@ -31,12 +31,14 @@ const LoginPage = () => {
           onBlur={() => setLostFocus(true)}
           className={isValid ? "success" : "error"}
         />
-        {lostFocus && !isValid && (
-          <span>Please, enter a valid email</span>
-        )}
+        {lostFocus && !isValid && <span>Please, enter a valid email</span>}
       </div>
       <div>
-        <input placeholder='Password' type='password' />
+        <input
+          placeholder="Password"
+          type="password"
+          name="password"
+        />
       </div>
     </div>
   );
