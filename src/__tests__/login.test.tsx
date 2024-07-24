@@ -35,5 +35,12 @@ describe("<LoginPage>", () => {
       const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']")
       expect(input!.value).toBe("")
     })
+
+    it("should receive focus", () => {
+      render(<LoginPage />);
+      const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']")
+      input!.focus()
+      expect(input).toHaveFocus()
+    })
   })
 });
