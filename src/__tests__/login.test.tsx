@@ -103,7 +103,12 @@ describe("<LoginPage>", () => {
       render(<LoginPage />);
       expect(document.querySelector("input[type='password']")).toBeInTheDocument();
     });
-    it.todo("should have attribute name and with value password");
+    it("should have attribute name and with value password", () => {
+      render(<LoginPage />);
+      const input = document.querySelector("input[type='password']");
+      expect(input?.hasAttribute("name")).toBeTruthy();
+      expect(input?.getAttribute("name")).toBe("password");
+    });
     it.todo("should initialize empty");
     it.todo("should receive focus");
 
