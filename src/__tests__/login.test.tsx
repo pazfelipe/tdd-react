@@ -20,7 +20,7 @@ describe("<LoginPage>", () => {
       expect(document.querySelector("input[type='email']")).toBeInTheDocument();
     });
 
-    it("should have attribute name and be email", () => {
+    it("should have attribute name with value email", () => {
       render(<LoginPage />);
       const input = document.querySelector("input[type='email']");
       expect(input?.hasAttribute("name")).toBeTruthy();
@@ -93,4 +93,39 @@ describe("<LoginPage>", () => {
       });
     });
   });
+
+  describe("input password", () => {
+    it.todo("should be rendered");
+    it.todo("should be type of password");
+    it.todo("should have attribute name and with value password");
+    it.todo("should initialize empty");
+    it.todo("should receive focus");
+
+    describe("validations", () => {
+      it.todo("should be required");
+      it.todo("should have a success class after entered a password");
+      it.todo("should display an error message on blur when input password is empty");
+      it.todo("should be able to toggle password visibility");
+    });
+  });
+
+  describe("button submit", () => {
+    it.todo("should be rendered");
+    it.todo("should be type of submit");
+    it.todo("should be disabled after submitting form");
+    it.todo("should receive focus");
+
+    describe("validations", () => {
+      it.todo("should be disabled while email and password are not valid");
+    });
+  });
+
+  describe("form", () =>{
+    it.todo("input email should be disabled after submiting");
+    it.todo("input password should be disabled after submiting");
+    it.todo("button submit should be disabled after submiting");
+    it.todo("should display a message for credentials not found");
+    it.todo("should display a message for login successfuly");
+  })
+
 });
