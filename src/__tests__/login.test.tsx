@@ -151,7 +151,13 @@ describe("<LoginPage>", () => {
     });
 
     describe("validations", () => {
-      it.todo("should be required");
+      it("should be required", () => {
+        render(<LoginPage />);
+        const input = document.querySelector<HTMLInputElement>(
+          "input[type='password'][name='password']",
+        );
+        expect(input).toHaveAttribute("required");
+      });
       it.todo("should have a success class after entered a password");
       it.todo("should display an error message on blur when input password is empty");
       it.todo("should be able to toggle password visibility");
