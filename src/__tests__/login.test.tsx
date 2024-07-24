@@ -29,5 +29,11 @@ describe("<LoginPage>", () => {
       expect(input?.hasAttribute("name")).toBeTruthy()
       expect(input?.getAttribute("name")).toBe("email")
     })
+
+    it("should initialize empty", () => {
+      render(<LoginPage />);
+      const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']")
+      expect(input!.value).toBe("")
+    })
   })
 });
