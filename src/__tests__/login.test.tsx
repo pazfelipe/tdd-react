@@ -256,6 +256,11 @@ describe("<LoginPage>", () => {
   });
 
   describe("form", () => {
+    it("should be rendered", () => {
+      render(<LoginPage />);
+      expect(document.querySelector("form")).toBeInTheDocument();
+    });
+
     it.todo("input email should be disabled after submiting");
     it.todo("input password should be disabled after submiting");
     it.todo("button submit should be disabled after submiting");
