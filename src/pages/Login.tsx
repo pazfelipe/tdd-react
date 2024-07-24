@@ -7,6 +7,7 @@ const LoginPage = () => {
   const [lostFocus, setLostFocus] = useState(false);
   const [isValid, setIsValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -28,6 +29,10 @@ const LoginPage = () => {
     setPassword(newValue);
     setLostFocus(false);
     setIsPasswordValid(validatePassword(newValue));
+  };
+
+  const onHandleSubmit = () => {
+    setIsLoading(true);
   };
 
   return (
@@ -64,7 +69,7 @@ const LoginPage = () => {
         </div>
         <button type='button' role='toggle' onClick={() => setVisibility(!visible)}></button>
       </div>
-      <button type="submit"></button>
+      <button type="submit" onClick={onHandleSubmit} disabled={isLoading}></button>
     </div>
   );
 };
