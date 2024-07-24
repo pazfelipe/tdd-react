@@ -158,8 +158,18 @@ describe("<LoginPage>", () => {
         );
         expect(input).toHaveAttribute("required");
       });
-      it.todo("should have a success class after entered a password");
-      it.todo("should display an error message on blur when input password is empty");
+      
+      it("should have a success class after entered a password", () => {
+        render(<LoginPage />);
+        const input = document.querySelector<HTMLInputElement>(
+          "input[type='password'][name='password']",
+        );
+        fireEvent.change(input!, {target: {value: "123456"}});
+
+        expect(input?.classList.contains("success")).toBeTruthy();
+      });
+
+      it.todo("should display an error message on blur when input password has less than 6 characters");
       it.todo("should be able to toggle password visibility");
     });
   });
