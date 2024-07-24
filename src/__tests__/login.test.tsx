@@ -109,7 +109,13 @@ describe("<LoginPage>", () => {
       expect(input?.hasAttribute("name")).toBeTruthy();
       expect(input?.getAttribute("name")).toBe("password");
     });
-    it.todo("should initialize empty");
+    it("should initialize empty", () => {
+      render(<LoginPage />);
+      const input = document.querySelector<HTMLInputElement>(
+        "input[type='password'][name='password']",
+      );
+      expect(input!.value).toBe("");
+    });
     it.todo("should receive focus");
 
     describe("validations", () => {
@@ -131,12 +137,12 @@ describe("<LoginPage>", () => {
     });
   });
 
-  describe("form", () =>{
+  describe("form", () => {
     it.todo("input email should be disabled after submiting");
     it.todo("input password should be disabled after submiting");
     it.todo("button submit should be disabled after submiting");
     it.todo("should display a message for credentials not found");
     it.todo("should display a message for login successfuly");
-  })
+  });
 
 });
