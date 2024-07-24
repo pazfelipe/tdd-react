@@ -62,7 +62,15 @@ describe("<LoginPage>", () => {
         render(<LoginPage />);
         const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']");
         expect(input?.required).toBeTruthy();
-      })
-    })
+      });
+
+      it("should have an error class while typing an invalid email", () => {
+        render(<LoginPage />);
+        const input = document.querySelector<HTMLInputElement>("input[type='email'][name='email']");
+        fireEvent.change(input!, {target: {value: 'test'}});
+
+        expect(input?.classList.contains("error")).toBeTruthy();
+      });
+    });
   });
 });
