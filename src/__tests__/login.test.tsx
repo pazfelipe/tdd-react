@@ -94,6 +94,16 @@ describe("<LoginPage>", () => {
 
         expect(input?.classList.contains("success")).toBeTruthy();
       });
+
+      it("should display an error message on blur when entered an invalid email", () => {
+        const {getByText} = render(<LoginPage />);
+        const input = document.querySelector<HTMLInputElement>(
+          "input[type='email'][name='email']",
+        );
+        fireEvent.change(input!, {target: {value: "wrong"}});
+        fireEvent.blur(input!);
+
+        expect(getByText("Please, enter a valid email")).toBeInTheDocument();
     });
   });
 });
