@@ -31,7 +31,8 @@ const LoginPage = () => {
     setIsPasswordValid(validatePassword(newValue));
   };
 
-  const onHandleSubmit = () => {
+  const onHandleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
     setIsLoading(true);
   };
 
@@ -46,6 +47,7 @@ const LoginPage = () => {
             name="email"
             required
             value={value}
+            disabled={isLoading}
             onChange={onChangeEmail}
             onFocus={() => setLostFocus(false)}
             onBlur={() => setLostFocus(true)}
