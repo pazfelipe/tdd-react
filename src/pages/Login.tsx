@@ -39,7 +39,7 @@ const LoginPage = () => {
   return (
     <div>
       Login Page
-      <form action="">
+      <form action="" onSubmit={onHandleSubmit}>
         <div>
           <input
             placeholder="Email"
@@ -76,7 +76,7 @@ const LoginPage = () => {
           </div>
           <button type='button' role='toggle' onClick={() => setVisibility(!visible)}></button>
         </div>
-        <button type="submit" onClick={onHandleSubmit} disabled={isLoading || !isValid || !isPasswordValid}></button>
+        <button type="submit" disabled={isLoading || !isValid || !isPasswordValid}></button>
       </form>
     </div>
   );
