@@ -1,34 +1,32 @@
-import {fireEvent, render} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import LoginPage from '../pages/Login';
 
-
 describe("<LoginPage>", () => {
+  beforeEach(() => {
+    render(<LoginPage />);
+  });
+
   it("should render correctly", () => {
-    const {getByText} = render(<LoginPage />);
-    expect(getByText("Login Page")).toBeInTheDocument();
+    expect(screen.getByText("Welcome back")).toBeInTheDocument();
   });
 
   describe("input email", () => {
     it("should be rendered", () => {
-      const {getByPlaceholderText} = render(<LoginPage />);
-      expect(getByPlaceholderText("Email")).toBeInTheDocument();
+      expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
     });
 
     it("should be type of email", () => {
-      render(<LoginPage />);
       expect(document.querySelector("input[type='email']")).toBeInTheDocument();
     });
 
     it("should have attribute name with value email", () => {
-      render(<LoginPage />);
       const input = document.querySelector("input[type='email']");
       expect(input?.hasAttribute("name")).toBeTruthy();
       expect(input?.getAttribute("name")).toBe("email");
     });
 
     it("should initialize empty", () => {
-      render(<LoginPage />);
       const input = document.querySelector<HTMLInputElement>(
         "input[type='email'][name='email']",
       );
@@ -36,7 +34,6 @@ describe("<LoginPage>", () => {
     });
 
     it("should receive focus", () => {
-      render(<LoginPage />);
       const input = document.querySelector<HTMLInputElement>(
         "input[type='email'][name='email']",
       );
@@ -45,8 +42,7 @@ describe("<LoginPage>", () => {
     });
 
     it("should display input value 'testing element'", () => {
-      const {getByPlaceholderText} = render(<LoginPage />);
-      const input = getByPlaceholderText("Email");
+      const input = screen.getByPlaceholderText("Email");
       fireEvent.focus(input);
       fireEvent.change(input, {target: {value: "testing element"}});
       expect(input).toHaveValue("testing element");
@@ -54,7 +50,6 @@ describe("<LoginPage>", () => {
 
     describe("validations", () => {
       it("should be required", () => {
-        render(<LoginPage />);
         const input = document.querySelector<HTMLInputElement>(
           "input[type='email'][name='email']",
         );
@@ -62,62 +57,56 @@ describe("<LoginPage>", () => {
       });
 
       it("should have an error class while typing an invalid email", () => {
-        render(<LoginPage />);
-        const input = document.querySelector<HTMLInputElement>(
-          "input[type='email'][name='email']",
-        );
-        fireEvent.change(input!, {target: {value: "wrong"}});
-
-        expect(input?.classList.contains("error")).toBeTruthy();
-      });
-
-      it("should have a success class after entered an email", () => {
-        render(<LoginPage />);
-        const input = document.querySelector<HTMLInputElement>(
-          "input[type='email'][name='email']",
-        );
-        fireEvent.change(input!, {target: {value: "email@example.com"}});
-
-        expect(input?.classList.contains("success")).toBeTruthy();
-      });
-
-      it("should display an error message on blur when entered an invalid email", () => {
-        const {getByText} = render(<LoginPage />);
         const input = document.querySelector<HTMLInputElement>(
           "input[type='email'][name='email']",
         );
         fireEvent.change(input!, {target: {value: "wrong"}});
         fireEvent.blur(input!);
+        expect(input?.parentElement?.classList.contains("error")).toBeTruthy();
+      });
 
-        expect(getByText("Please, enter a valid email")).toBeInTheDocument();
+      it("should have a success class after entered an email", () => {
+        const input = document.querySelector<HTMLInputElement>(
+          "input[type='email'][name='email']",
+        );
+        fireEvent.change(input!, {target: {value: "email@example.com"}});
+        expect(input?.parentElement?.classList.contains("success")).toBeTruthy();
+      });
+
+      it("should display an error message on blur when entered an invalid email", () => {
+        const input = document.querySelector<HTMLInputElement>(
+          "input[type='email'][name='email']",
+        );
+        fireEvent.change(input!, {target: {value: "wrong"}});
+        fireEvent.blur(input!);
+        expect(screen.getByText("Please, enter a valid email")).toBeInTheDocument();
       });
     });
   });
 
   describe("input password", () => {
     it("should be rendered", () => {
-      const {getByPlaceholderText} = render(<LoginPage />);
-      expect(getByPlaceholderText("Password")).toBeInTheDocument();
+      expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
     });
+
     it("should be type of password", () => {
-      render(<LoginPage />);
       expect(document.querySelector("input[type='password']")).toBeInTheDocument();
     });
-    it("should have attribute name and with value password", () => {
-      render(<LoginPage />);
+
+    it("should have attribute name with value password", () => {
       const input = document.querySelector("input[type='password']");
       expect(input?.hasAttribute("name")).toBeTruthy();
       expect(input?.getAttribute("name")).toBe("password");
     });
+
     it("should initialize empty", () => {
-      render(<LoginPage />);
       const input = document.querySelector<HTMLInputElement>(
         "input[type='password'][name='password']",
       );
       expect(input!.value).toBe("");
     });
+
     it("should receive focus", () => {
-      render(<LoginPage />);
       const input = document.querySelector<HTMLInputElement>(
         "input[type='password'][name='password']",
       );
@@ -126,24 +115,19 @@ describe("<LoginPage>", () => {
     });
 
     it("should enter password '123456'", () => {
-      const {getByPlaceholderText} = render(<LoginPage />);
-      const input = getByPlaceholderText("Password");
+      const input = screen.getByPlaceholderText("Password");
       fireEvent.focus(input);
       fireEvent.change(input, {target: {value: "123456"}});
       expect(input).toHaveValue("123456");
     });
 
     it("should have a button to toggle password visibility", () => {
-      render(<LoginPage />);
       expect(document.querySelector("button[role='toggle']")).toBeInTheDocument();
     });
 
-    it("should able to toggle input password type", () => {
-      render(<LoginPage />);
+    it("should be able to toggle input password type", () => {
       const btn = document.querySelector("button[role='toggle']");
-
       const input = document.querySelector("input[name='password']") as HTMLInputElement;
-
       fireEvent.click(btn!);
       expect(input.type).toBe("text");
       fireEvent.click(btn!);
@@ -152,7 +136,6 @@ describe("<LoginPage>", () => {
 
     describe("validations", () => {
       it("should be required", () => {
-        render(<LoginPage />);
         const input = document.querySelector<HTMLInputElement>(
           "input[type='password'][name='password']",
         );
@@ -160,51 +143,43 @@ describe("<LoginPage>", () => {
       });
 
       it("should have a success class after entered a password", () => {
-        render(<LoginPage />);
         const input = document.querySelector<HTMLInputElement>(
           "input[type='password'][name='password']",
         );
         fireEvent.change(input!, {target: {value: "123456"}});
-
-        expect(input?.classList.contains("success")).toBeTruthy();
+        expect(input?.parentElement?.classList.contains("success")).toBeTruthy();
       });
 
       it("should display an error message on blur when input password has less than 6 characters", () => {
-        render(<LoginPage />);
         const input = document.querySelector<HTMLInputElement>(
           "input[type='password'][name='password']",
         );
         fireEvent.change(input!, {target: {value: "123"}});
-
-        expect(input?.classList.contains("error")).toBeTruthy();
+        fireEvent.blur(input!);
+        expect(input?.parentElement?.classList.contains("error")).toBeTruthy();
       });
 
       it("should display an error message on blur when entered an invalid password", () => {
-        const {getByText} = render(<LoginPage />);
         const input = document.querySelector<HTMLInputElement>(
           "input[name='password']",
         );
         fireEvent.change(input!, {target: {value: "123"}});
         fireEvent.blur(input!);
-
-        expect(getByText("Your password must have at least 6 characters")).toBeInTheDocument();
+        expect(screen.getByText("Your password must have at least 6 characters")).toBeInTheDocument();
       });
     });
   });
 
   describe("button submit", () => {
     it("should be rendered", () => {
-      render(<LoginPage />);
       expect(document.querySelector("button[type='submit']")).toBeInTheDocument();
     });
 
     it("should be type of submit", () => {
-      render(<LoginPage />);
       expect(document.querySelector("button[type='submit']")).toBeInTheDocument();
     });
 
     it("should be disabled after submitting form", () => {
-      render(<LoginPage />);
       const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
       fireEvent.click(button!);
       expect(button?.disabled).toBeTruthy();
@@ -212,44 +187,29 @@ describe("<LoginPage>", () => {
 
     describe("validations", () => {
       it("should be disabled while email is not valid", () => {
-        const {getByPlaceholderText} = render(<LoginPage />);
-
-        const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
-        const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
-
+        const emailInput = screen.getByPlaceholderText('Email') as HTMLInputElement;
+        const passwordInput = screen.getByPlaceholderText('Password') as HTMLInputElement;
         fireEvent.change(emailInput, {target: {value: '1234'}});
         fireEvent.change(passwordInput, {target: {value: '123456'}});
-
         const button = document.querySelector("button[type='submit'][disabled='']") as HTMLButtonElement;
-
         expect(button).toBeInTheDocument();
       });
 
       it("should be disabled while password is not valid", () => {
-        const {getByPlaceholderText} = render(<LoginPage />);
-
-        const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
-        const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
-
+        const emailInput = screen.getByPlaceholderText('Email') as HTMLInputElement;
+        const passwordInput = screen.getByPlaceholderText('Password') as HTMLInputElement;
         fireEvent.change(emailInput, {target: {value: 'email@example.com'}});
         fireEvent.change(passwordInput, {target: {value: '12345'}});
-
         const button = document.querySelector("button[type='submit'][disabled='']") as HTMLButtonElement;
-
         expect(button).toBeInTheDocument();
       });
 
       it("should be enabled while entering a valid password and email", () => {
-        const {getByPlaceholderText} = render(<LoginPage />);
-
-        const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
-        const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
-
+        const emailInput = screen.getByPlaceholderText('Email') as HTMLInputElement;
+        const passwordInput = screen.getByPlaceholderText('Password') as HTMLInputElement;
         fireEvent.change(emailInput, {target: {value: 'email@example.com'}});
         fireEvent.change(passwordInput, {target: {value: '123456'}});
-
         const button = document.querySelector("button[type='submit'][disabled='']") as HTMLButtonElement;
-
         expect(button).not.toBeInTheDocument();
       });
     });
@@ -257,14 +217,12 @@ describe("<LoginPage>", () => {
 
   describe("form", () => {
     it("should be rendered", () => {
-      render(<LoginPage />);
       expect(document.querySelector("form")).toBeInTheDocument();
     });
 
-    it("input email should be disabled after submiting", () => {
-      const {getByPlaceholderText} = render(<LoginPage />);
-      const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
-      const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
+    it("input email should be disabled after submitting", () => {
+      const emailInput = screen.getByPlaceholderText('Email') as HTMLInputElement;
+      const passwordInput = screen.getByPlaceholderText('Password') as HTMLInputElement;
       fireEvent.change(emailInput, {target: {value: 'email@example.com'}});
       fireEvent.change(passwordInput, {target: {value: '123456'}});
       const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
@@ -272,10 +230,9 @@ describe("<LoginPage>", () => {
       expect(emailInput).toBeDisabled();
     });
 
-    it("input password should be disabled after submiting", () => {
-      const {getByPlaceholderText} = render(<LoginPage />);
-      const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
-      const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
+    it("input password should be disabled after submitting", () => {
+      const emailInput = screen.getByPlaceholderText('Email') as HTMLInputElement;
+      const passwordInput = screen.getByPlaceholderText('Password') as HTMLInputElement;
       fireEvent.change(emailInput, {target: {value: 'email@example.com'}});
       fireEvent.change(passwordInput, {target: {value: '123456'}});
       const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
@@ -283,27 +240,22 @@ describe("<LoginPage>", () => {
       expect(passwordInput).toBeDisabled();
     });
 
-    it("button submit should be disabled after submiting", () => {
-      render(<LoginPage />);
+    it("button submit should be disabled after submitting", () => {
       const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
       fireEvent.click(button);
       expect(button).toBeDisabled();
     });
 
     it("should display a message for credentials not found", () => {
-      const {getByPlaceholderText, getByText} = render(<LoginPage />);
-      const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
-      const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
+      const emailInput = screen.getByPlaceholderText('Email') as HTMLInputElement;
+      const passwordInput = screen.getByPlaceholderText('Password') as HTMLInputElement;
       fireEvent.change(emailInput, {target: {value: 'another@example.com'}});
       fireEvent.change(passwordInput, {target: {value: '123457'}});
       const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
       fireEvent.click(button);
-
-      expect(getByText('Wrong credentials or user not found')).toBeInTheDocument();
-
+      expect(screen.getByText('Wrong credentials or user not found')).toBeInTheDocument();
     });
 
-    it.todo("should display a message for login successfuly");
+    it.todo("should display a message for login successfully");
   });
-
 });
