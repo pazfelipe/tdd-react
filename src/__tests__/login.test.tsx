@@ -264,7 +264,9 @@ describe("<LoginPage>", () => {
     it("input email should be disabled after submiting", () => {
       const {getByPlaceholderText} = render(<LoginPage />);
       const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
+      const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
       fireEvent.change(emailInput, {target: {value: 'email@example.com'}});
+      fireEvent.change(passwordInput, {target: {value: '123456'}});
       const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
       fireEvent.click(button);
       expect(emailInput).toBeDisabled();
@@ -272,7 +274,9 @@ describe("<LoginPage>", () => {
 
     it("input password should be disabled after submiting", () => {
       const {getByPlaceholderText} = render(<LoginPage />);
+      const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
       const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
+      fireEvent.change(emailInput, {target: {value: 'email@example.com'}});
       fireEvent.change(passwordInput, {target: {value: '123456'}});
       const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
       fireEvent.click(button);
@@ -285,7 +289,7 @@ describe("<LoginPage>", () => {
       fireEvent.click(button);
       expect(button).toBeDisabled();
     });
-    
+
     it.todo("should display a message for credentials not found");
     it.todo("should display a message for login successfuly");
   });
