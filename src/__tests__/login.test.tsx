@@ -290,7 +290,19 @@ describe("<LoginPage>", () => {
       expect(button).toBeDisabled();
     });
 
-    it.todo("should display a message for credentials not found");
+    it("should display a message for credentials not found", () => {
+      const {getByPlaceholderText, getByText} = render(<LoginPage />);
+      const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
+      const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
+      fireEvent.change(emailInput, {target: {value: 'another@example.com'}});
+      fireEvent.change(passwordInput, {target: {value: '123457'}});
+      const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
+      fireEvent.click(button);
+
+      expect(getByText('Wrong credentials or user not found')).toBeInTheDocument();
+
+    });
+
     it.todo("should display a message for login successfuly");
   });
 
