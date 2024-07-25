@@ -279,7 +279,13 @@ describe("<LoginPage>", () => {
       expect(passwordInput).toBeDisabled();
     });
 
-    it.todo("button submit should be disabled after submiting");
+    it("button submit should be disabled after submiting", () => {
+      render(<LoginPage />);
+      const button = document.querySelector("button[type='submit']") as HTMLButtonElement;
+      fireEvent.click(button);
+      expect(button).toBeDisabled();
+    });
+    
     it.todo("should display a message for credentials not found");
     it.todo("should display a message for login successfuly");
   });
