@@ -4,9 +4,9 @@ const LoginPage = () => {
   const [value, setValue] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisibility] = useState(false);
-  const [lostFocus, setLostFocus] = useState(false);
-  const [isValid, setIsValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [lostFocus, setLostFocus] = useState<string | null>(null);
+  const [isValid, setIsValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const validateEmail = (email: string) => {
@@ -20,14 +20,14 @@ const LoginPage = () => {
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setValue(newValue);
-    setLostFocus(false);
+    setLostFocus(null);
     setIsValid(validateEmail(newValue));
   };
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setPassword(newValue);
-    setLostFocus(false);
+    setLostFocus(null);
     setIsPasswordValid(validatePassword(newValue));
   };
 
@@ -49,11 +49,11 @@ const LoginPage = () => {
             value={value}
             disabled={isLoading}
             onChange={onChangeEmail}
-            onFocus={() => setLostFocus(false)}
-            onBlur={() => setLostFocus(true)}
+            onFocus={() => setLostFocus(null)}
+            onBlur={() => setLostFocus('email')}
             className={isValid ? "success" : "error"}
           />
-          {lostFocus && !isValid && <span>Please, enter a valid email</span>}
+          {lostFocus === 'email' && !isValid && <span>Please, enter a valid email</span>}
         </div>
         <div>
           <div>
@@ -65,14 +65,14 @@ const LoginPage = () => {
               value={password}
               disabled={isLoading}
               onChange={onChangePassword}
-              onFocus={() => setLostFocus(false)}
+              onFocus={() => setLostFocus(null)}
               onBlur={() => {
-                setLostFocus(true);
+                setLostFocus('password');
                 setIsValid(isValid);
               }}
               className={isPasswordValid ? "success" : "error"}
             />
-            {lostFocus && !isPasswordValid && <span>Your password must have at least 6 characters</span>}
+            {lostFocus === 'password' && !isPasswordValid && <span>Your password must have at least 6 characters</span>}
           </div>
           <button type='button' role='toggle' onClick={() => setVisibility(!visible)}></button>
         </div>
