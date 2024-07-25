@@ -8,6 +8,7 @@ const LoginPage = () => {
   const [isValid, setIsValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -34,6 +35,12 @@ const LoginPage = () => {
   const onHandleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+
+    if(value !== 'email@example.com' || password !== '123456') {
+      setIsLoading(false);
+      setErrorMsg('Wrong credentials or user not found')
+      return
+    }
   };
 
   return (
@@ -78,6 +85,7 @@ const LoginPage = () => {
         </div>
         <button type="submit" disabled={isLoading || !isValid || !isPasswordValid}></button>
       </form>
+      {errorMsg && <span>{errorMsg}</span>}
     </div>
   );
 };
