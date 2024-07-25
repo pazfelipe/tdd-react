@@ -1,46 +1,35 @@
 import {ChangeEvent, useState} from "react";
+import useLoginValidation, {EACTION} from '../hooks/useLoginValidation';
 
 const LoginPage = () => {
-  const [value, setValue] = useState("");
-  const [password, setPassword] = useState("");
+  const {state, dispatch} = useLoginValidation();
   const [visible, setVisibility] = useState(false);
-  const [lostFocus, setLostFocus] = useState<string | null>(null);
-  const [isValid, setIsValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const validateEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
-  const validatePassword = (password: string) => {
-    return password.length >= 6;
-  };
-
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setValue(newValue);
-    setLostFocus(null);
-    setIsValid(validateEmail(newValue));
+    dispatch({type: EACTION.SET_EMAIL, payload: e.target.value});
+    dispatch({type: EACTION.SET_FOCUS, payload: null});
   };
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setPassword(newValue);
-    setLostFocus(null);
-    setIsPasswordValid(validatePassword(newValue));
+    dispatch({type: EACTION.SET_PASSWORD, payload: e.target.value});
+    dispatch({type: EACTION.SET_FOCUS, payload: null});
   };
 
   const onHandleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    if(value !== 'email@example.com' || password !== '123456') {
+    if (state.email !== 'email@example.com' || state.password !== '123456') {
       setIsLoading(false);
-      setErrorMsg('Wrong credentials or user not found')
-      return
+      setErrorMsg('Wrong credentials or user not found');
+      return;
     }
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000)
   };
 
   return (
@@ -53,14 +42,14 @@ const LoginPage = () => {
             type="email"
             name="email"
             required
-            value={value}
+            value={state.email}
             disabled={isLoading}
             onChange={onChangeEmail}
-            onFocus={() => setLostFocus(null)}
-            onBlur={() => setLostFocus('email')}
-            className={isValid ? "success" : "error"}
+            onFocus={() => dispatch({type: EACTION.SET_FOCUS, payload: null})}
+            onBlur={() => dispatch({type: EACTION.SET_FOCUS, payload: 'email'})}
+            className={state.isEmailValid ? "success" : "error"}
           />
-          {lostFocus === 'email' && !isValid && <span>Please, enter a valid email</span>}
+          {state.lostFocus === 'email' && !state.isEmailValid && <span>Please, enter a valid email</span>}
         </div>
         <div>
           <div>
@@ -69,21 +58,18 @@ const LoginPage = () => {
               type={visible ? "text" : "password"}
               name="password"
               required
-              value={password}
+              value={state.password}
               disabled={isLoading}
               onChange={onChangePassword}
-              onFocus={() => setLostFocus(null)}
-              onBlur={() => {
-                setLostFocus('password');
-                setIsValid(isValid);
-              }}
-              className={isPasswordValid ? "success" : "error"}
+              onFocus={() => dispatch({type: EACTION.SET_FOCUS, payload: null})}
+              onBlur={() => dispatch({type: EACTION.SET_FOCUS, payload: 'password'})}
+              className={state.isPasswordValid ? "success" : "error"}
             />
-            {lostFocus === 'password' && !isPasswordValid && <span>Your password must have at least 6 characters</span>}
+            {state.lostFocus === 'password' && !state.isPasswordValid && <span>Your password must have at least 6 characters</span>}
           </div>
           <button type='button' role='toggle' onClick={() => setVisibility(!visible)}></button>
         </div>
-        <button type="submit" disabled={isLoading || !isValid || !isPasswordValid}></button>
+        <button type="submit" disabled={isLoading || !state.isEmailValid || !state.isPasswordValid}></button>
       </form>
       {errorMsg && <span>{errorMsg}</span>}
     </div>
